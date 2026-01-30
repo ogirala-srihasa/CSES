@@ -24,5 +24,5 @@ int main(){
         if(nxt == n+1) break;
         else ans++;
     }
-    cout << ans;
+    cout << ans << '\n';
 }
