@@ -7,22 +7,17 @@ int main(){
 
     int n;
     cin >> n;
-
-    vector<int> arr(n);
+    vector<int> pos(n+1);
+    int curr;
     for(int i = 0; i < n; i++){
-        cin >> arr[i];
+        cin >> curr;
+        pos[curr] = i;
     }
-    int nxt = 1;
     int ans = 1;
-    while(true){
-        for(int i = 0; i < n; i++){
-            if(arr[i] == nxt){
-                arr[i] = -1;
-                nxt++;
-            }
+    for(int i = 1; i < n; i++){
+        if(pos[i] > pos[i+1]){
+            ans++;
         }
-        if(nxt == n+1) break;
-        else ans++;
     }
     cout << ans << '\n';
 }
