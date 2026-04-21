@@ -14,23 +14,20 @@ int main(){
     for(int i = 0; i < n; i++){
         cin >> arr[i];
     }
-
-    
-    vector<int> curr(t+1, 0);
-    vector<int> prev(t+1, 0);
-    curr[0] = 1;
-    prev[0] = 1;
-    for(int i = 1; i <=n; i++){
-        for(int ta = 1; ta <= t; ta++){
-            if(ta < arr[i-1]){
-                curr[ta] = prev[ta];
-            }else{
-                curr[ta] = (prev[ta] + curr[ta-arr[i-1]])%mod;
+    sort(arr.begin(),arr.end());
+    vector<int> dp(t+1,0);
+    dp[0] = 1;
+    for(int ta = 1; ta <= t; ta++){
+        for(int i = 0; i < n; i++){
+            if(ta < arr[i]) break;
+            if(dp[ta] + dp[ta-arr[i]] >= mod){
+                dp[ta] = dp[ta] + dp[ta-arr[i]] - mod;
             }
+            else dp[ta] = (dp[ta] + dp[ta-arr[i]]);
         }
-        prev = curr;
     }
-    
-    cout << curr[t];
+
+    cout << dp[t];
+
 
 }
