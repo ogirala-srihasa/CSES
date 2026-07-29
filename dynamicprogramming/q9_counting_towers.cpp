@@ -11,16 +11,19 @@ int main(){
     int t,n;
 
     cin >> t;
-    for(int test = 0; test  < t; t++){
-        cin >> n;
-        if(n == 1) cout << 2 << '\n';
-        else if(n == 2) cout << 8 << '\n';
-        else{
-            vector<int> dp(n+1);
-            dp[1] = 2;
-            dp[2] = 8;
-            
-        }
+    n = 0;
+    vector<int> arr(t);
+    for(int test = 0; test  < t; test++){
+        cin >> arr[test];
+        n = max(arr[test],n);
+    }
+    vector<vector<long long>> dp(n+1,vector<long long>(2,1));
+    for(int i = 2; i <= n; i++){
+        dp[i][0] = ((dp[i-1][0] * 4)%mod + dp[i-1][1])%mod;
+        dp[i][1] = ((dp[i-1][1] * 2)%mod + dp[i-1][0])%mod;
+    }
+    for(auto it:arr){
+        cout << (dp[it][0] + dp[it][1])%mod << '\n';
     }
 
 
